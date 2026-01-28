@@ -1,5 +1,9 @@
 # Deploying Your First Kubernetes Cluster
 
+<p align="center">
+  <img src="hero.svg" alt="Deploying Your First Kubernetes Cluster" width="100%">
+</p>
+
 A comprehensive guide and toolkit for deploying your first Kubernetes cluster using K3s, a lightweight Kubernetes distribution perfect for learning, development, and production edge deployments.
 
 ## Quick Start
