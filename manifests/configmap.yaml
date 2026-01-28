@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  labels:
+    app: nginx
+data:
+  # Custom nginx configuration
+  custom.conf: |
+    server {
+        listen 80;
+        server_name _;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html index.htm;
+        }
+
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+
+        # Enable gzip compression
+        gzip on;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml;
+        gzip_min_length 1000;
+    }
+
+  # Environment-specific settings
+  app.env: |
+    ENVIRONMENT=demo
+    LOG_LEVEL=info
+    WORKER_PROCESSES=auto
+
+  # HTML content
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Welcome to K3s!</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 50px auto;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            .container {
+                background-color: white;
+                padding: 40px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            h1 {
+                color: #326ce5;
+            }
+            .success {
+                color: #28a745;
+                font-weight: bold;
+            }
+            code {
+                background-color: #f4f4f4;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: monospace;
+            }
+            .footer {
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #ddd;
+                color: #666;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome to Your K3s Cluster!</h1>
+            <p class="success">✓ Your Kubernetes cluster is running successfully</p>
+
+            <h2>What's Next?</h2>
+            <ul>
+                <li>Deploy more applications with <code>kubectl apply -f</code></li>
+                <li>Check out the examples in the <code>examples/</code> directory</li>
+                <li>Read the documentation in <code>documentation/</code></li>
+                <li>Scale your deployment with <code>kubectl scale deployment nginx-deployment --replicas=5</code></li>
+            </ul>
+
+            <h2>Useful Commands</h2>
+            <ul>
+                <li><code>kubectl get pods</code> - List all pods</li>
+                <li><code>kubectl get services</code> - List all services</li>
+                <li><code>kubectl logs &lt;pod-name&gt;</code> - View pod logs</li>
+                <li><code>kubectl describe pod &lt;pod-name&gt;</code> - Get detailed pod info</li>
+            </ul>
+
+            <div class="footer">
+                <p>Deployed on K3s - Lightweight Kubernetes</p>
+                <p>Repository: deploying-your-first-kubernetes-cluster</p>
+            </div>
+        </div>
+    </body>
+    </html>
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-settings
+  labels:
+    app: nginx
+data:
+  # Application configuration
+  database.host: "localhost"
+  database.port: "5432"
+  cache.enabled: "true"
+  cache.ttl: "3600"
+  feature.flags: "new-ui,enhanced-logging"
+
+  # JSON configuration example
+  app-config.json: |
+    {
+      "server": {
+        "port": 8080,
+        "host": "0.0.0.0"
+      },
+      "logging": {
+        "level": "info",
+        "format": "json"
+      },
+      "features": {
+        "authentication": true,
+        "metrics": true,
+        "tracing": false
+      }
+    }

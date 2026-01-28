@@ -1,0 +1,57 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  labels:
+    app: nginx
+  annotations:
+    # Traefik annotations (K3s default ingress controller)
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    # Uncomment for HTTPS redirect
+    # traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+
+    # For nginx-ingress controller (if you installed it separately)
+    # kubernetes.io/ingress.class: nginx
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: nginx.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
+
+  # Uncomment for additional host-based routing
+  # - host: app.example.com
+  #   http:
+  #     paths:
+  #     - path: /
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: nginx-service
+  #           port:
+  #             number: 80
+
+  # Uncomment for TLS/HTTPS
+  # tls:
+  # - hosts:
+  #   - nginx.local
+  #   secretName: nginx-tls-secret
+
+---
+# Optional: Middleware for HTTPS redirect (Traefik)
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: redirect-https
+# spec:
+#   redirectScheme:
+#     scheme: https
+#     permanent: true
