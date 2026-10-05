@@ -1,176 +1,60 @@
-# Deploying Your First Kubernetes Cluster
-
 <p align="center">
-  <img src="hero.svg" alt="Deploying Your First Kubernetes Cluster" width="100%">
+  <img src="hero.svg" width="100%" alt="Running install-k3s.sh brings up a K3s cluster — a control-plane node and two agents — then kubectl apply turns the pods green.">
 </p>
 
-A comprehensive guide and toolkit for deploying your first Kubernetes cluster using K3s, a lightweight Kubernetes distribution perfect for learning, development, and production edge deployments.
+<h1 align="center">Deploying Your First Kubernetes Cluster</h1>
 
-## Quick Start
+<p align="center"><b>A production-ready Kubernetes cluster with K3s — in minutes.</b> Install scripts, core manifests, and three runnable example stacks to learn from. K3s is a lightweight, certified Kubernetes in a single binary.</p>
 
-Get your Kubernetes cluster running in minutes:
-
-```bash
-# Clone the repository
-git clone https://github.com/ry-ops/deploying-your-first-kubernetes-cluster.git
-cd deploying-your-first-kubernetes-cluster
-
-# Install K3s
-./scripts/install-k3s.sh
-
-# Setup kubectl
-./scripts/setup-kubectl.sh
-
-# Deploy sample application
-kubectl apply -f manifests/
-```
-
-## K3s Installation
-
-K3s is a highly available, certified Kubernetes distribution designed for production workloads in resource-constrained environments. It's packaged as a single binary and uses only 512MB of RAM.
-
-### Prerequisites
-
-- Linux-based operating system (Ubuntu, Debian, CentOS, etc.)
-- 1GB RAM minimum (2GB recommended)
-- 1 CPU core minimum
-- Root or sudo access
-
-### Installation Methods
-
-#### Automated Installation (Recommended)
-
-Use our installation script for a quick setup:
-
-```bash
-./scripts/install-k3s.sh
-```
-
-This script will:
-- Install K3s with sensible defaults
-- Configure kubectl access
-- Set up kubeconfig for the current user
-- Verify the installation
-
-#### Manual Installation
-
-If you prefer to install K3s manually:
-
-```bash
-curl -sfL https://get.k3s.io | sh -
-```
-
-For additional options:
-
-```bash
-# Install without Traefik (if you plan to use nginx-ingress)
-curl -sfL https://get.k3s.io | sh -s - --disable traefik
-
-# Install as worker node
-curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
-```
-
-### Verify Installation
-
-```bash
-# Check K3s status
-sudo systemctl status k3s
-
-# Check nodes
-kubectl get nodes
-
-# Check system pods
-kubectl get pods -A
-```
-
-## Repository Structure
-
-```
-.
-├── scripts/              # Installation and setup scripts
-│   ├── install-k3s.sh   # K3s installation script
-│   └── setup-kubectl.sh # kubectl configuration script
-├── manifests/           # Sample Kubernetes manifests
-│   ├── deployment.yaml  # Nginx deployment example
-│   ├── service.yaml     # Service configuration
-│   ├── ingress.yaml     # Ingress controller setup
-│   └── configmap.yaml   # ConfigMap example
-├── examples/            # Complete application examples
-│   ├── wordpress/       # WordPress deployment
-│   ├── monitoring/      # Monitoring stack
-│   └── multi-tier-app/  # Multi-tier application
-└── documentation/       # Detailed guides
-    ├── K3S-SETUP.md     # K3s setup guide
-    ├── KUBECTL-GUIDE.md # kubectl reference
-    └── TROUBLESHOOTING.md # Common issues and solutions
-```
-
-## What's Included
-
-### Scripts
-
-- **install-k3s.sh**: Automated K3s installation with best practices
-- **setup-kubectl.sh**: Configure kubectl for cluster access
-
-### Sample Manifests
-
-Basic Kubernetes resources to get you started:
-- Nginx deployment with 3 replicas
-- ClusterIP and LoadBalancer service examples
-- Ingress configuration for HTTP routing
-- ConfigMap for application configuration
-
-### Examples
-
-Real-world application deployments:
-- **WordPress**: Complete WordPress + MySQL setup with persistent storage
-- **Monitoring**: Prometheus + Grafana monitoring stack
-- **Multi-tier App**: Frontend, backend, and database tier example
-
-### Documentation
-
-Comprehensive guides covering:
-- K3s installation and configuration
-- kubectl usage and best practices
-- Common troubleshooting scenarios
-
-## Next Steps
-
-After deploying your cluster:
-
-1. **Explore the examples**: Deploy the WordPress or monitoring stack
-2. **Read the documentation**: Learn about K3s features and kubectl commands
-3. **Deploy your own apps**: Use the manifests as templates
-4. **Scale up**: Add worker nodes to create a multi-node cluster
-
-## Learning Resources
-
-- [Official K3s Documentation](https://docs.k3s.io/)
-- [Kubernetes Documentation](https://kubernetes.io/docs/)
-- [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For issues and questions:
-- Check the [TROUBLESHOOTING.md](documentation/TROUBLESHOOTING.md) guide
-- Open an issue on GitHub
-- Consult the official K3s documentation
-
-## Author
-
-**ry-ops** - DevOps tutorials and infrastructure guides
+<p align="center">
+  <img src="https://img.shields.io/badge/K3s-lightweight%20K8s-ffc61c" alt="K3s">
+  <img src="https://img.shields.io/badge/kubectl-ready-326ce5" alt="kubectl">
+  <img src="https://img.shields.io/badge/examples-3%20stacks-3ddc84" alt="3 example stacks">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-8b96ad" alt="MIT"></a>
+</p>
 
 ---
 
-Happy Kubernetes learning!
+## Quick start
+
+```bash
+git clone https://github.com/ry-ops/deploying-your-first-kubernetes-cluster.git
+cd deploying-your-first-kubernetes-cluster
+
+./scripts/install-k3s.sh      # install K3s (single binary, ~512MB RAM)
+./scripts/setup-kubectl.sh    # point kubectl at the new cluster
+kubectl apply -f manifests/   # deploy the sample app
+```
+
+```bash
+kubectl get nodes      # control-plane + agents, Ready
+kubectl get pods -A    # system + your pods
+```
+
+Add agents by running the installer in worker mode, and skip Traefik if you'd rather bring your own ingress — see [K3S-SETUP.md](documentation/K3S-SETUP.md).
+
+## What you can deploy
+
+<p align="center">
+  <img src="docs/examples.svg" width="100%" alt="Core manifests (deployment, service, ingress, configmap) plus three example stacks: monitoring (Prometheus + Grafana), a multi-tier app (frontend, backend, database), and WordPress with MySQL and a PVC.">
+</p>
+
+- **Core manifests** (`manifests/`) — `deployment`, `service`, `ingress`, `configmap` to learn the basics.
+- **Monitoring** (`examples/monitoring/`) — Prometheus + Grafana.
+- **Multi-tier app** (`examples/multi-tier-app/`) — frontend, backend, database.
+- **WordPress** (`examples/wordpress/`) — a stateful app with MySQL and a persistent volume.
+
+Each example has its own README and applies with `kubectl apply -f examples/<name>/`.
+
+## Learn more
+
+- [K3S-SETUP.md](documentation/K3S-SETUP.md) — installation options, HA, workers
+- [KUBECTL-GUIDE.md](documentation/KUBECTL-GUIDE.md) — the commands you'll use daily
+- [TROUBLESHOOTING.md](documentation/TROUBLESHOOTING.md) — when things don't come up
+
+## License
+
+MIT. See [LICENSE](LICENSE).
 
 <!-- org-footer -->
 ---

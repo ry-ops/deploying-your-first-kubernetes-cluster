@@ -1,224 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <defs>
-    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0c1a2e"/>
-      <stop offset="100%" stop-color="#1e3a5f"/>
-    </linearGradient>
-
-    <linearGradient id="pod-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1e40af"/>
-    </linearGradient>
-
-    <linearGradient id="service-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#14b8a6"/>
-      <stop offset="100%" stop-color="#0d9488"/>
-    </linearGradient>
-
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-labelledby="t d">
+  <title id="t">Deploy your first Kubernetes cluster with K3s</title>
+  <desc id="d">Run the install script and a lightweight K3s cluster comes up — a control-plane node and two agents. Apply the manifests and the pods turn green: running. A tutorial toolkit for K3s.</desc>
+  <defs><linearGradient id="title" x1="0" x2="1"><stop offset="0" stop-color="#ffc61c"/><stop offset=".5" stop-color="#326ce5"/><stop offset="1" stop-color="#3ddc84"/></linearGradient></defs>
   <style>
-    @keyframes float-pod {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes pulse-pod {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-    }
-
-    @keyframes mesh-flow {
-      0% { stroke-dashoffset: 20; }
-      100% { stroke-dashoffset: 0; }
-    }
-
-    @keyframes rotate-hexagon {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes tree-pulse {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    .pod-node {
-      animation: float-pod 5s ease-in-out infinite;
-    }
-
-    .service-node {
-      animation: pulse-pod 4s ease-in-out infinite;
-    }
-
-    .mesh-line {
-      stroke-dasharray: 5 5;
-      animation: mesh-flow 2s linear infinite;
-    }
+    text { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; fill:#e6ebf5; }
+    .muted { fill:#8b96ad; } .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    @keyframes cmd { 0%,3.33% { opacity:0; transform:translateY(6px); } 7.22%,93.33% { opacity:1; transform:translateY(0); } 96.67%,100% { opacity:0 } } .cmd { animation:cmd 9.0s infinite; }
+    @keyframes cp { 0%,15.56% { opacity:0; transform:scale(.6); } 19.44%,93.33% { opacity:1; transform:scale(1); } 96.67%,100% { opacity:0 } } .cp { animation:cp 9.0s infinite; }
+    @keyframes a1 { 0%,24.44% { opacity:0; transform:scale(.6); } 28.33%,93.33% { opacity:1; transform:scale(1); } 96.67%,100% { opacity:0 } } .a1 { animation:a1 9.0s infinite; }
+    @keyframes a2 { 0%,31.11% { opacity:0; transform:scale(.6); } 35.00%,93.33% { opacity:1; transform:scale(1); } 96.67%,100% { opacity:0 } } .a2 { animation:a2 9.0s infinite; }
+    @keyframes pod0 { 0%,44.44% { fill:#3a4459 } 47.78%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod0 { animation:pod0 9.0s infinite; }
+    @keyframes pod1 { 0%,47.22% { fill:#3a4459 } 50.56%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod1 { animation:pod1 9.0s infinite; }
+    @keyframes pod2 { 0%,50.00% { fill:#3a4459 } 53.33%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod2 { animation:pod2 9.0s infinite; }
+    @keyframes pod3 { 0%,52.78% { fill:#3a4459 } 56.11%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod3 { animation:pod3 9.0s infinite; }
+    @keyframes pod4 { 0%,55.56% { fill:#3a4459 } 58.89%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod4 { animation:pod4 9.0s infinite; }
+    @keyframes pod5 { 0%,58.33% { fill:#3a4459 } 61.67%,95.56% { fill:#3ddc84 } 100% { fill:#3a4459 } } .pod5 { animation:pod5 9.0s infinite; }
+    @keyframes ready { 0%,73.33% { opacity:0; } 77.22%,93.33% { opacity:1; } 96.67%,100% { opacity:0 } } .ready { animation:ready 9.0s infinite; }
+    @media (prefers-reduced-motion: reduce) { * { animation:none !important; } [class^=pod] { fill:#3ddc84 } }
   </style>
+  <rect width="960" height="400" rx="20" fill="#0f1420"/>
+  <text x="40" y="58" font-size="34" font-weight="800" style="fill:url(#title)">Your first K8s cluster</text>
+  <text x="42" y="88" font-size="16" class="muted">A production-ready cluster with K3s — lightweight, single binary, up in minutes.</text>
 
-  <!-- Background -->
-  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
-
-  <!-- Hexagonal mesh pattern -->
-  <g opacity="0.08">
-    <defs>
-      <pattern id="hexagons" width="80" height="69.28" patternUnits="userSpaceOnUse">
-        <polygon points="40,0 60,11.55 60,34.64 40,46.19 20,34.64 20,11.55" fill="none" stroke="#3b82f6" stroke-width="0.8"/>
-      </pattern>
-    </defs>
-    <rect width="1200" height="630" fill="url(#hexagons)"/>
+  <!-- terminal -->
+  <rect x="40" y="140" width="330" height="210" rx="10" fill="#0b0f18" stroke="#2c3750"/>
+  <g class="cmd">
+    <text x="58" y="172" font-size="12" class="mono" style="fill:#3ddc84">$ ./scripts/install-k3s.sh</text>
+    <text x="58" y="198" font-size="12" class="mono muted">[+] k3s installed</text>
+    <text x="58" y="222" font-size="12" class="mono" style="fill:#3ddc84">$ kubectl get nodes</text>
+    <text x="58" y="246" font-size="12" class="mono muted">control-plane  Ready</text>
+    <text x="58" y="268" font-size="12" class="mono muted">agent-1        Ready</text>
+    <text x="58" y="290" font-size="12" class="mono muted">agent-2        Ready</text>
+    <text x="58" y="316" font-size="12" class="mono" style="fill:#3ddc84">$ kubectl apply -f manifests/</text>
   </g>
 
-  <!-- Service mesh overlay -->
-  <g class="service-mesh" opacity="0.25">
-    <line class="mesh-line" x1="200" y1="150" x2="400" y2="150" stroke="#14b8a6" stroke-width="1.5"/>
-    <line class="mesh-line" x1="400" y1="150" x2="600" y2="200" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -0.5s"/>
-    <line class="mesh-line" x1="600" y1="200" x2="800" y2="180" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1s"/>
-    <line class="mesh-line" x1="800" y1="180" x2="1000" y2="220" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1.5s"/>
-
-    <line class="mesh-line" x1="200" y1="315" x2="400" y2="350" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -0.3s"/>
-    <line class="mesh-line" x1="400" y1="350" x2="600" y2="315" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -0.8s"/>
-    <line class="mesh-line" x1="600" y1="315" x2="800" y2="340" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1.3s"/>
-    <line class="mesh-line" x1="800" y1="340" x2="1000" y2="315" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1.8s"/>
-
-    <line class="mesh-line" x1="200" y1="480" x2="400" y2="450" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -0.6s"/>
-    <line class="mesh-line" x1="400" y1="450" x2="600" y2="480" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1.1s"/>
-    <line class="mesh-line" x1="600" y1="480" x2="800" y2="460" stroke="#14b8a6" stroke-width="1.5" style="animation-delay: -1.6s"/>
-  </g>
-
-  <!-- Pod clusters - Top tier -->
-  <g class="pod-cluster-1">
-    <g class="pod-node" style="animation-delay: 0s">
-      <polygon points="300,150 320,160 320,180 300,190 280,180 280,160" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="305,155 315,161 315,174 305,180 295,174 295,161" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -1s">
-      <polygon points="500,180 520,190 520,210 500,220 480,210 480,190" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="505,185 515,191 515,204 505,210 495,204 495,191" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -2s">
-      <polygon points="700,160 720,170 720,190 700,200 680,190 680,170" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="705,165 715,171 715,184 705,190 695,184 695,171" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -3s">
-      <polygon points="900,200 920,210 920,230 900,240 880,230 880,210" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="905,205 915,211 915,224 905,230 895,224 895,211" fill="#60a5fa" opacity="0.8"/>
-    </g>
-  </g>
-
-  <!-- Pod clusters - Middle tier -->
-  <g class="pod-cluster-2">
-    <g class="pod-node" style="animation-delay: -0.5s">
-      <polygon points="250,315 270,325 270,345 250,355 230,345 230,325" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="255,320 265,326 265,339 255,345 245,339 245,326" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -1.5s">
-      <polygon points="450,335 470,345 470,365 450,375 430,365 430,345" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="455,340 465,346 465,359 455,365 445,359 445,346" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -2.5s">
-      <polygon points="600" cy="315" r="28" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="605,300 625,311 625,331 605,342 585,331 585,311" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -3.5s">
-      <polygon points="750,325 770,335 770,355 750,365 730,355 730,335" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="755,330 765,336 765,349 755,355 745,349 745,336" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -4.5s">
-      <polygon points="950,300 970,310 970,330 950,340 930,330 930,310" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="955,305 965,311 965,324 955,330 945,324 945,311" fill="#60a5fa" opacity="0.8"/>
-    </g>
-  </g>
-
-  <!-- Pod clusters - Bottom tier -->
-  <g class="pod-cluster-3">
-    <g class="pod-node" style="animation-delay: -1s">
-      <polygon points="300,465 320,475 320,495 300,505 280,495 280,475" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="305,470 315,476 315,489 305,495 295,489 295,476" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -2s">
-      <polygon points="500,445 520,455 520,475 500,485 480,475 480,455" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="505,450 515,456 515,469 505,475 495,469 495,456" fill="#60a5fa" opacity="0.8"/>
-    </g>
-
-    <g class="pod-node" style="animation-delay: -3s">
-      <polygon points="700,470 720,480 720,500 700,510 680,500 680,480" fill="url(#pod-gradient)" opacity="0.7" filter="url(#glow)"/>
-      <polygon points="705,475 715,481 715,494 705,500 695,494 695,481" fill="#60a5fa" opacity="0.8"/>
-    </g>
-  </g>
-
-  <!-- Service nodes (larger hexagons) -->
-  <g class="services">
-    <g class="service-node" style="animation-delay: 0s">
-      <polygon points="400,150 430,167.5 430,202.5 400,220 370,202.5 370,167.5" fill="url(#service-gradient)" opacity="0.4" filter="url(#glow)"/>
-      <polygon points="405,157 425,169 425,193 405,205 385,193 385,169" fill="#14b8a6" opacity="0.7"/>
-    </g>
-
-    <g class="service-node" style="animation-delay: -1.5s">
-      <polygon points="800,180 830,197.5 830,232.5 800,250 770,232.5 770,197.5" fill="url(#service-gradient)" opacity="0.4" filter="url(#glow)"/>
-      <polygon points="805,187 825,199 825,223 805,235 785,223 785,199" fill="#14b8a6" opacity="0.7"/>
-    </g>
-
-    <g class="service-node" style="animation-delay: -3s">
-      <polygon points="350,340 380,357.5 380,392.5 350,410 320,392.5 320,357.5" fill="url(#service-gradient)" opacity="0.4" filter="url(#glow)"/>
-      <polygon points="355,347 375,359 375,383 355,395 335,383 335,359" fill="#14b8a6" opacity="0.7"/>
-    </g>
-
-    <g class="service-node" style="animation-delay: -4.5s">
-      <polygon points="850,330 880,347.5 880,382.5 850,400 820,382.5 820,347.5" fill="url(#service-gradient)" opacity="0.4" filter="url(#glow)"/>
-      <polygon points="855,337 875,349 875,373 855,385 835,373 835,349" fill="#14b8a6" opacity="0.7"/>
-    </g>
-  </g>
-
-  <!-- Hierarchical tree structure in background -->
-  <g class="hierarchy" opacity="0.15">
-    <line x1="600" y1="80" x2="400" y2="150" stroke="#3b82f6" stroke-width="2" class="tree-pulse"/>
-    <line x1="600" y1="80" x2="600" y2="200" stroke="#3b82f6" stroke-width="2" class="tree-pulse" style="animation-delay: -1s"/>
-    <line x1="600" y1="80" x2="800" y2="180" stroke="#3b82f6" stroke-width="2" class="tree-pulse" style="animation-delay: -2s"/>
-
-    <circle cx="600" cy="80" r="12" fill="#60a5fa" filter="url(#glow)"/>
-  </g>
-
-  <!-- Interconnected mesh visualization -->
-  <g opacity="0.2">
-    <path d="M300,150 L500,180 L700,160 L900,200" stroke="#14b8a6" stroke-width="1" fill="none" stroke-dasharray="3 3">
-      <animate attributeName="stroke-dashoffset" from="0" to="12" dur="3s" repeatCount="indefinite"/>
-    </path>
-    <path d="M250,315 L450,335 L600,315 L750,325 L950,300" stroke="#14b8a6" stroke-width="1" fill="none" stroke-dasharray="3 3">
-      <animate attributeName="stroke-dashoffset" from="0" to="12" dur="3s" repeatCount="indefinite" begin="1s"/>
-    </path>
-    <path d="M300,465 L500,445 L700,470" stroke="#14b8a6" stroke-width="1" fill="none" stroke-dasharray="3 3">
-      <animate attributeName="stroke-dashoffset" from="0" to="12" dur="3s" repeatCount="indefinite" begin="2s"/>
-    </path>
-  </g>
-
-  <!-- Ambient glows -->
-  <circle cx="400" cy="185" r="100" fill="#3b82f6" opacity="0.02">
-    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="6s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="600" cy="315" r="140" fill="#14b8a6" opacity="0.02">
-    <animate attributeName="opacity" values="0.02;0.07;0.02" dur="7s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="800" cy="215" r="110" fill="#60a5fa" opacity="0.02">
-    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="8s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="500" cy="460" r="90" fill="#0d9488" opacity="0.02">
-    <animate attributeName="opacity" values="0.02;0.05;0.02" dur="6.5s" repeatCount="indefinite"/>
-  </circle>
+  <text x="600" y="160" font-size="11" font-weight="700" class="muted" letter-spacing=".08em">YOUR CLUSTER</text>
+  <g class="cp"><rect x="600" y="170" width="150" height="90" rx="10" fill="#161d2b" stroke="#326ce5" stroke-width="2"/><text x="675" y="192" text-anchor="middle" font-size="12" font-weight="700">control-plane</text><text x="675" y="208" text-anchor="middle" font-size="9" class="muted">k3s server</text></g>
+  <g class="a1"><rect x="600" y="280" width="150" height="90" rx="10" fill="#161d2b" stroke="#326ce5" stroke-width="2"/><text x="675" y="302" text-anchor="middle" font-size="12" font-weight="700">agent-1</text><text x="675" y="318" text-anchor="middle" font-size="9" class="muted">k3s agent</text></g>
+  <g class="a2"><rect x="770" y="225" width="150" height="90" rx="10" fill="#161d2b" stroke="#326ce5" stroke-width="2"/><text x="845" y="247" text-anchor="middle" font-size="12" font-weight="700">agent-2</text><text x="845" y="263" text-anchor="middle" font-size="9" class="muted">k3s agent</text></g>
+  <rect class="pod0" x="620" y="222" width="46" height="24" rx="5" fill="#3a4459"/><rect class="pod1" x="678" y="222" width="46" height="24" rx="5" fill="#3a4459"/><rect class="pod2" x="620" y="332" width="46" height="24" rx="5" fill="#3a4459"/><rect class="pod3" x="678" y="332" width="46" height="24" rx="5" fill="#3a4459"/><rect class="pod4" x="790" y="277" width="46" height="24" rx="5" fill="#3a4459"/><rect class="pod5" x="848" y="277" width="46" height="24" rx="5" fill="#3a4459"/>
+  <g class="ready"><rect x="770" y="330" width="150" height="30" rx="8" fill="#123322" stroke="#3ddc84"/><text x="845" y="350" text-anchor="middle" font-size="12" font-weight="700" style="fill:#9ff0c4">pods running ✓</text></g>
 </svg>
